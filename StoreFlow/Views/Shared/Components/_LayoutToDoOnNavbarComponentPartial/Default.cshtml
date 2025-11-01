@@ -1,0 +1,71 @@
+﻿@model List<Todo>
+@{
+    int index = 1;
+}
+
+<li class="nav-item dropdown">
+	<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+		<i class="fas fa-bell mx-0"></i>
+        <span class="count">@ViewBag.todoTotalCount</span>
+	</a>
+	<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+		<a class="dropdown-item">
+			<p class="mb-0 font-weight-normal float-left">
+				Toplam @ViewBag.todoTotalCount bildiriminiz var.
+			</p>
+			<span class="badge badge-pill badge-warning float-right">Tümünü Gör</span>
+		</a>
+		<div class="dropdown-divider"></div>
+		@foreach (var item in Model)
+		{
+
+            string bgClass;
+            string iconClass;
+
+            switch (index)
+            {
+                case 1:
+                    bgClass = "bg-info";      
+                    iconClass = "fas fa-check-circle";
+                    break;
+                case 2:
+                    bgClass = "bg-success"; 
+                    iconClass = "fas fa-info-circle";
+                    break;
+                case 3:
+                    bgClass = "bg-primary";
+                    iconClass = "fas fa-hourglass-half";
+                    break;
+                case 4:
+                    bgClass = "bg-warning"; 
+                    iconClass = "fas fa-exclamation-triangle";
+                    break;
+                case 5:
+                    bgClass = "bg-danger";
+                    iconClass = "fas fa-times-circle"; 
+                    break;
+                default:
+                    bgClass = "bg-secondary"; 
+                    iconClass = "fas fa-question-circle";
+                    break;
+            }
+
+            <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <div class="preview-icon @bgClass">
+                        <i class="@iconClass mx-0"></i>
+                    </div>
+                </div>
+                <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-medium">@item.Description</h6>
+                    <p class="font-weight-light small-text">
+                        @item.Priority
+                    </p>
+                </div>
+            </a>
+            <div class="dropdown-divider"></div>
+
+            index++;
+		}
+	</div>
+</li>

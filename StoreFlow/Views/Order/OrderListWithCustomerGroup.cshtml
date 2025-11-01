@@ -1,0 +1,32 @@
+﻿@model List<CustomerOrderViewModel>
+@{
+    ViewData["Title"] = "OrderListWithCustomerGroup";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<h1>Müşteri Sipariş Grup Listesi</h1>
+
+@foreach (var item in Model)
+{
+    <div class="card-header mb-3">
+		<div class="card-header bg-dark text-white">
+            <strong>@item.CustomerName</strong>
+        </div>
+		<div class="card-body">
+            @if (item.Orders.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var order in item.Orders)
+                    {
+                        <li class="list-group-item mt-2 mb-2">Sipariş No: @order.OrderId</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Bu Müşterinin Hiç Siparişi Yok</p>
+            }
+        </div>
+    </div>
+}
+
